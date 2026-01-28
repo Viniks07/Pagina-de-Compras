@@ -1,8 +1,4 @@
-import {
-  InputLabel,
-  FormControl,
-  Select
-} from "@mui/material";
+import { FormControl, InputLabel, Select, FormHelperText } from "@mui/material";
 
 export const formHelperText = ({
   input,
@@ -14,7 +10,7 @@ export const formHelperText = ({
   <FormControl 
     fullWidth 
     variant="outlined" 
-    error={touched && !!error}
+    error={touched && !!error} // Deixa Label, Borda e Erro vermelhos
   >
     <InputLabel shrink>{label}</InputLabel>
     <Select
@@ -26,6 +22,12 @@ export const formHelperText = ({
     >
       {children}
     </Select>
-    {touched && error && <formHelperText>{error}</formHelperText>}
+    
+    {/* Use o componente do MUI com F maiúsculo aqui */}
+    {touched && error && (
+      <FormHelperText sx={{ fontSize: '1.2rem' }}>
+        {error}
+      </FormHelperText>
+    )}
   </FormControl>
 );

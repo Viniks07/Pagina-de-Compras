@@ -33,6 +33,20 @@ body {
   padding: 0;
 }
 
+.formContainer :global(.MuiFormHelperText-root) {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+
+
+
+.formContainer :global(.MuiInputLabel-shrink.Mui-error) {
+  color: #d32f2f;
+}
+
 .clientData {
   color: #546e7a;
   font-weight: bold;
@@ -41,11 +55,11 @@ body {
   border-bottom: 2px solid #eceff1;
 }
 
-.inputContainer{
+.inputContainer {
   margin: 16px 0;
 }
 
-.formInput :global(.MuiInputBase-input){
+.formInput :global(.MuiInputBase-input) {
   font-size: 1.6rem;
   line-height: 1.8rem;
   font-weight: 400;
@@ -86,7 +100,7 @@ body {
   font-weight: 400 !important;
 }
 
-.totalText{
+.totalText {
   font-size: 1.4rem;
   line-height: 1.8rem;
   color: #546e7a;
@@ -94,7 +108,7 @@ body {
   margin: 16px 0;
   text-align: center;
 }
-.submitButton{
+.submitButton {
   font-size: 1.4rem;
   line-height: 1.8rem;
   color: #fff;

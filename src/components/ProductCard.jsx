@@ -16,25 +16,26 @@ import removeIcon from "../assets/layout_images/baseline-remove-24px.svg";
 
 function ProductCard({ product: { id, name, price, img } }) {
   const [tempQuantity, setTempQuantity] = useState(0);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleAdd = () => setTempQuantity((prev) => prev + 1);
-  const handleRemove = () => setTempQuantity((prev) => (prev > 0 ? prev - 1 : 0));
+  const handleRemove = () =>
+    setTempQuantity((prev) => (prev > 0 ? prev - 1 : 0));
 
-  const handleConfirmation = () =>{
-    if(tempQuantity > 0){
+  const handleConfirmation = () => {
+    if (tempQuantity > 0) {
       dispatch({
-        type:"UPDATE_CART_ITEM",
-        payload:{
-          productId:id,
-          quantity:tempQuantity
-        }
-      })
+        type: "UPDATE_CART_ITEM",
+        payload: {
+          productId: id,
+          quantity: tempQuantity,
+        },
+      });
       setTempQuantity(0);
     }
-  }
+  };
 
   return (
-    <Card component={"article"} elevation={0}>
+    <Card component={"article"} elevation={0} className={styles.cardContainer}>
       <CardMedia component={"img"} image={img} alt={name} width={"100%"} />
       <CardContent className={styles.cardContent}>
         <Typography component={"h2"} className={styles.productName}>
@@ -64,7 +65,7 @@ function ProductCard({ product: { id, name, price, img } }) {
           à vista (10% de desconto)
         </Typography>
 
-        <Box>
+        <Box className={styles.interactiveSection}>
           <div className={styles.counterContainer}>
             <Button
               variant="outlined"
@@ -95,11 +96,12 @@ function ProductCard({ product: { id, name, price, img } }) {
               />
             </Button>
           </div>
-          <Button variant="contained"
-           fullWidth
+          <Button
+            variant="contained"
+            fullWidth
             className={styles.addButton}
             onClick={handleConfirmation}
-            >
+          >
             Adicionar
           </Button>
         </Box>
