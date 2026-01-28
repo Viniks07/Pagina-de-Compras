@@ -1,0 +1,169 @@
+html {
+  font-size: 62.75%;
+}
+
+.cardContent {
+  opacity: 0.8;
+  padding: 0 8px;
+}
+
+.productName {
+  color: #546e7a;
+  font-weight: 400;
+  padding: 8px 0;
+}
+
+.productPrice {
+  color: #546e7a;
+  font-weight: 700;
+  padding: 8px 0;
+}
+
+.productDescription {
+  color: #90a4ae;
+  font-weight: 400;
+}
+
+.counterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.counterButton {
+  border-radius: 50%;
+  padding: 0;
+  background-color: #c0d1da;
+}
+
+.counterButton:hover{
+  background-color: #899da7;
+}
+
+.counterImage {
+  color: #b0bec5;
+}
+
+.counterInput :global(.MuiInputBase-input) {
+  border-radius: 4px;
+  font-family: "Open Sans", sans-serif;
+  color: #546e7a;
+  font-weight: 400;
+  text-align: center;
+  box-sizing: border-box;
+  border: 1px solid #eceff1;
+}
+
+.addButton {
+  background-color: #019cdf;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+
+@media (min-width: 0px) {
+  .productName {
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+  }
+
+  .productPrice {
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+  }
+
+  .productDescription {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+
+  .counterButton {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .counterInput :global(.MuiInputBase-input) {
+    width: 17.5rem;
+    height: 4rem;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+  }
+
+  .addButton {
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    height: 4rem;
+    margin:8px 0;
+  }
+}
+
+@media (min-width: 600px) {
+  .productName {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+  .productPrice {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+  }
+
+  .productDescription {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+
+  .counterButton {
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  .counterInput :global(.MuiInputBase-input) {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    height: 3.2rem;
+    width: 10rem;
+  }
+
+  .addButton {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    height: 3rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .productName {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+
+  .productPrice {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+  }
+
+  .productDescription {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+
+  .counterButton {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .counterInput :global(.MuiInputBase-input) {
+    width: 12.5rem;
+    height: 4rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+
+  .addButton {
+    height: 3.6rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}

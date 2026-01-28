@@ -1,7 +1,12 @@
+import { StyledEngineProvider } from "@mui/material/styles";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <StyledEngineProvider injectFirst>
+      <AppRoutes />
+    </StyledEngineProvider>
+  );
 }
 
 export default App;
