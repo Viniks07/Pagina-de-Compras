@@ -8,11 +8,13 @@ import {
 } from "@mui/material";
 import { reduxForm, Field } from "redux-form";
 import { reduxFormField } from "../components/ReduxForm";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import productsDataBase from "../utils/ProductsDataBase";
 import ProductCard from "../components/ProductCard";
 import styles from "../pages/Products.module.css";
 import { formHelperText } from "../components/FormHelperText";
+import { toast } from "react-toastify";
 
 const validate = (values) => {
   const errors = {};
@@ -36,6 +38,8 @@ const validate = (values) => {
 
 function Products({ handleSubmit }) {
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const totalValue = productsDataBase.reduce((acc, product) => {
     const quantity = cart[product.id] || 0;
@@ -43,9 +47,53 @@ function Products({ handleSubmit }) {
   }, 0);
 
   const onSubmit = (values) => {
-    if (totalValue === 0) return alert("Adicione ao menos um produto");
-    console.log(`Dados do cliente: ${values}`);
-    console.log(`Total da compra: ${totalValue}`);
+    if (totalValue === 0) {
+      toast.error("Adicione ao menos um produto para finalizar a compra!");
+      return;
+    }
+    try {
+      const lastOrderIndex = localStorage.getItem("last-order-index") || "0";
+
+      const newId = Number(lastOrderIndex) + 1;
+
+      const itemsComprados = productsDataBase
+        .filter((product) => cart[product.id] > 0)
+        .map((product) => ({
+          product_id: product.id,
+          name: product.name,
+          price: product.price.toFixed(2),
+          quantity: cart[product.id],
+        }));
+
+      const pedidoCompleto = {
+        id_pedido: `PEDIDO-${newId}`,
+        nome: values.nome,
+        email: values.email,
+        sexo: values.sexo,
+        items: itemsComprados,
+        total: String(totalValue.toFixed(2)),
+        data: new Date().toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+      };
+      localStorage.setItem(`PEDIDO-${newId}`, JSON.stringify(pedidoCompleto));
+      localStorage.setItem("last-order-index", String(newId));
+
+      dispatch({ type: "SET_FINAL_ORDER", payload: pedidoCompleto });
+
+      dispatch({ type: "CLEAR_CART" });
+
+      toast.success("Pedido realizado com sucesso!");
+
+      navigate("/success");
+    } catch {
+      toast.error("Ocorreu um erro ao processar o pedido");
+    }
   };
 
   return (
@@ -74,87 +122,90 @@ function Products({ handleSubmit }) {
         </Grid>
         <Container component={"section"} className={styles.formContainer}>
           <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
-            <Typography component={"legend"} className={styles.clientData}>
-              Dados do Cliente
-            </Typography>
-            <Grid
-              sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  xs: "repeat(3,1fr)",
-                  sm: "repeat(4,1fr)",
-                  md: "repeat(12,1fr)",
-                },
-                gap: 2,
-              }}
-              className={styles.inputContainer}
-            >
+            <fieldset>
+              <Typography component={"legend"} className={styles.clientData}>
+                Dados do Cliente
+              </Typography>
               <Grid
                 sx={{
-                  gridColumn: {
-                    xs: "span 3",
-                    sm: "span 2",
-                    md: "span 5",
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "repeat(3,1fr)",
+                    sm: "repeat(4,1fr)",
+                    md: "repeat(12,1fr)",
                   },
+                  gap: 2,
                 }}
+                className={styles.inputContainer}
               >
-                <Field
-                  label="Nome"
-                  name="nome"
-                  component={reduxFormField}
-                  placeholder="Digite seu nome"
-                  InputLabelProps={{
-                    shrink: true,
+                <Grid
+                  sx={{
+                    gridColumn: {
+                      xs: "span 3",
+                      sm: "span 2",
+                      md: "span 5",
+                    },
                   }}
-                  className={styles.formInput}
-                />
-              </Grid>
-
-              <Grid
-                sx={{
-                  gridColumn: {
-                    xs: "span 3",
-                    sm: "span 2",
-                    md: "span 5",
-                  },
-                }}
-              >
-                <Field
-                  label="Email"
-                  name="email"
-                  component={reduxFormField}
-                  placeholder="Digite seu Email"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  className={styles.formInput}
-                />
-              </Grid>
-
-              <Grid
-                sx={{
-                  gridColumn: {
-                    xs: "span 3",
-                    sm: "span 1",
-                    md: "span 2",
-                  },
-                }}
-              >
-                <Field
-                  name="sexo"
-                  label="Sexo"
-                  component={formHelperText}
-                  className={styles.selectContainer}
                 >
-                  <MenuItem value="" disabled>
-                    <span>Selecione</span>
-                  </MenuItem>
-                  <MenuItem value="Masculino">Masculino</MenuItem>
-                  <MenuItem value="Feminino">Feminino</MenuItem>
-                  <MenuItem value="Outro">Outro</MenuItem>
-                </Field>
+                  <Field
+                    label="Nome"
+                    name="nome"
+                    component={reduxFormField}
+                    placeholder="Digite seu nome"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    className={styles.formInput}
+                  />
+                </Grid>
+
+                <Grid
+                  sx={{
+                    gridColumn: {
+                      xs: "span 3",
+                      sm: "span 2",
+                      md: "span 5",
+                    },
+                  }}
+                >
+                  <Field
+                    label="Email"
+                    name="email"
+                    component={reduxFormField}
+                    placeholder="Digite seu Email"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    className={styles.formInput}
+                  />
+                </Grid>
+
+                <Grid
+                  sx={{
+                    gridColumn: {
+                      xs: "span 3",
+                      sm: "span 1",
+                      md: "span 2",
+                    },
+                  }}
+                >
+                  <Field
+                    name="sexo"
+                    label="Sexo"
+                    component={formHelperText}
+                    className={styles.selectContainer}
+                  >
+                    <MenuItem value="" disabled>
+                      <span>Selecione</span>
+                    </MenuItem>
+                    <MenuItem value="Masculino">Masculino</MenuItem>
+                    <MenuItem value="Feminino">Feminino</MenuItem>
+                    <MenuItem value="Outro">Outro</MenuItem>
+                  </Field>
+                </Grid>
               </Grid>
-            </Grid>
+            </fieldset>
+
             <Box
               sx={{
                 display: "flex",

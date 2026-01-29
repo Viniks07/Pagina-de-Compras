@@ -16,7 +16,9 @@ import removeIcon from "../assets/layout_images/baseline-remove-24px.svg";
 
 function ProductCard({ product: { id, name, price, img } }) {
   const [tempQuantity, setTempQuantity] = useState(0);
+  const [isMouseOver, setIsMouseOver] = useState(false);
   const dispatch = useDispatch();
+
   const handleAdd = () => setTempQuantity((prev) => prev + 1);
   const handleRemove = () =>
     setTempQuantity((prev) => (prev > 0 ? prev - 1 : 0));
@@ -34,10 +36,21 @@ function ProductCard({ product: { id, name, price, img } }) {
     }
   };
 
+  const showCard = isMouseOver || tempQuantity > 0;
+
   return (
-    <Card component={"article"} elevation={0} className={styles.cardContainer}>
+    <Card
+      component={"article"}
+      elevation={0}
+      className={styles.cardContainer}
+      onMouseEnter={() => setIsMouseOver(true)}
+      onMouseLeave={() => setIsMouseOver(false)}
+    >
       <CardMedia component={"img"} image={img} alt={name} width={"100%"} />
-      <CardContent className={styles.cardContent}>
+      <CardContent
+        className={`${styles.cardContent}
+       ${showCard ? styles.cardContentActivator : ""}`}
+      >
         <Typography component={"h2"} className={styles.productName}>
           {name}
         </Typography>
@@ -82,6 +95,9 @@ function ProductCard({ product: { id, name, price, img } }) {
             <TextField
               value={tempQuantity}
               className={styles.counterInput}
+              slotProps={{
+                htmlInput: { readOnly: true },
+              }}
             ></TextField>
             <Button
               variant="outlined"
