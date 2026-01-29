@@ -45,7 +45,9 @@ Para atender aos requisitos obrigatórios e garantir a melhor performance, foram
 
 2. **Instale as dependências:**
    ```bash
-   npm install
+   # Por conflito de versões instale assim
+   npm install --legacy-peer-deps
+   
 
 
 3. **Clone este repositório:**
