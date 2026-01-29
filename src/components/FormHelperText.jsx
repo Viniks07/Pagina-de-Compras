@@ -10,7 +10,7 @@ export const formHelperText = ({
   <FormControl 
     fullWidth 
     variant="outlined" 
-    error={touched && !!error} // Deixa Label, Borda e Erro vermelhos
+    error={touched && !!error}
   >
     <InputLabel shrink>{label}</InputLabel>
     <Select
