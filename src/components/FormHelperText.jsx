@@ -23,7 +23,6 @@ export const formHelperText = ({
       {children}
     </Select>
     
-    {/* Use o componente do MUI com F maiúsculo aqui */}
     {touched && error && (
       <FormHelperText sx={{ fontSize: '1.2rem' }}>
         {error}

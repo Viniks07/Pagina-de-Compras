@@ -8,6 +8,9 @@ function App() {
   return (
     <StyledEngineProvider injectFirst>
       <AppRoutes />
+
+      {/* Adição de Toasts para erros */}
+      
       <ToastContainer 
         autoClose={3000}
         hideProgressBar={false}

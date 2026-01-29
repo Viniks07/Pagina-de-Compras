@@ -1,6 +1,8 @@
 import { createStore, combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 
+// Rota de update do carrinho
+
 const cartReducer = (state = {}, action) => {
   switch (action.type) {
     case "UPDATE_CART_ITEM":
@@ -16,6 +18,8 @@ const cartReducer = (state = {}, action) => {
       return state;
   }
 };
+
+// Rota de envio de informações pra pagina de finalização
 
 const checkoutReducer = (state = { lastOrder: null }, action) => {
   switch (action.type) {

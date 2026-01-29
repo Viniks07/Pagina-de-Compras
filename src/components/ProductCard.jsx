@@ -19,10 +19,12 @@ function ProductCard({ product: { id, name, price, img } }) {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const dispatch = useDispatch();
 
+  // Funções de botão de adição e subtração
   const handleAdd = () => setTempQuantity((prev) => prev + 1);
   const handleRemove = () =>
     setTempQuantity((prev) => (prev > 0 ? prev - 1 : 0));
 
+  // Função de adicionar produtos ao carrinho e zerando os produtos do card
   const handleConfirmation = () => {
     if (tempQuantity > 0) {
       dispatch({
@@ -36,6 +38,7 @@ function ProductCard({ product: { id, name, price, img } }) {
     }
   };
 
+  // Se o card estiver em estado de hover ou houver produtos para adicionar o card fica aberto
   const showCard = isMouseOver || tempQuantity > 0;
 
   return (
@@ -46,6 +49,7 @@ function ProductCard({ product: { id, name, price, img } }) {
       onMouseEnter={() => setIsMouseOver(true)}
       onMouseLeave={() => setIsMouseOver(false)}
     >
+      {/* Se show card é true adiona a classe Activator e sobe o card */}
       <CardMedia component={"img"} image={img} alt={name} width={"100%"} />
       <CardContent
         className={`${styles.cardContent}

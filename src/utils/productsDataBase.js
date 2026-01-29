@@ -7,6 +7,8 @@ import produto_06 from "../assets/products_images/produto-06.jpeg";
 import produto_07 from "../assets/products_images/produto-07.jpeg";
 import produto_08 from "../assets/products_images/produto-08.jpeg";
 
+// Banco de dados simulado
+
 const productsDataBase = [
   {
     id: 1,

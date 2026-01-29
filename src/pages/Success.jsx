@@ -8,6 +8,8 @@ import checkoutImage from "../assets/layout_images/purchase.png";
 function Success() {
   const navigate = useNavigate();
 
+  // Função pra alterar a cor do div#root
+
   useEffect(() => {
     document.documentElement.style.setProperty("--bg-color", "#eceff1");
 
@@ -16,8 +18,10 @@ function Success() {
     };
   }, []);
 
+  // Request das informações de compra da pagina de produtos
   const pedido = useSelector((state) => state.checkout.lastOrder);
 
+  // Bloqueio de acesso da pagina de finalização se não por meio da compra
   useEffect(() => {
     if (!pedido) {
       navigate("/");

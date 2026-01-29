@@ -16,6 +16,8 @@ import styles from "../pages/Products.module.css";
 import { formHelperText } from "../components/FormHelperText";
 import { toast } from "react-toastify";
 
+
+// Validações de formulario
 const validate = (values) => {
   const errors = {};
 
@@ -46,25 +48,28 @@ function Products({ handleSubmit }) {
     return acc + product.price * quantity;
   }, 0);
 
+  // Função de finalização de compra
   const onSubmit = (values) => {
     if (totalValue === 0) {
       toast.error("Adicione ao menos um produto para finalizar a compra!");
       return;
     }
     try {
+      // Recupera de localStorage o valor do ultimo ID de pedido
       const lastOrderIndex = localStorage.getItem("last-order-index") || "0";
 
       const newId = Number(lastOrderIndex) + 1;
-
+      
       const itemsComprados = productsDataBase
-        .filter((product) => cart[product.id] > 0)
-        .map((product) => ({
-          product_id: product.id,
-          name: product.name,
-          price: product.price.toFixed(2),
-          quantity: cart[product.id],
-        }));
-
+      .filter((product) => cart[product.id] > 0)
+      .map((product) => ({
+        product_id: product.id,
+        name: product.name,
+        price: product.price.toFixed(2),
+        quantity: cart[product.id],
+      }));
+      
+      // Salva todas as informações importantes do pedio
       const pedidoCompleto = {
         id_pedido: `PEDIDO-${newId}`,
         nome: values.nome,
@@ -81,11 +86,15 @@ function Products({ handleSubmit }) {
           second: "2-digit",
         }),
       };
+
+      // Salva os pedidos no LocalStorage
       localStorage.setItem(`PEDIDO-${newId}`, JSON.stringify(pedidoCompleto));
+      
+      // Salva o ID do ultimo lançamento
       localStorage.setItem("last-order-index", String(newId));
 
+      // Envia as informações pra pagina de finalização e limpa o carrinho
       dispatch({ type: "SET_FINAL_ORDER", payload: pedidoCompleto });
-
       dispatch({ type: "CLEAR_CART" });
 
       toast.success("Pedido realizado com sucesso!");
