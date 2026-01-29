@@ -28,7 +28,7 @@ function Success() {
 
   return (
     <Container component={"main"} className={styles.main}>
-      <Card component={"section"} className={styles.container} elevation={0}>
+      <Card component={"article"} className={styles.container} elevation={0}>
         <Typography component={"h1"} className={styles.heroTitle}>
           {pedido.nome},
         </Typography>
@@ -53,7 +53,7 @@ function Success() {
         ></CardMedia>
 
         <Button
-          component={"button"}
+          component={"a"}
           className={styles.heroButton}
           onClick={() => {
             navigate("/");

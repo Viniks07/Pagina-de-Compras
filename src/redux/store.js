@@ -9,6 +9,9 @@ const cartReducer = (state = {}, action) => {
         [action.payload.productId]:
           (state[action.payload.productId] || 0) + action.payload.quantity,
       };
+
+    case "CLEAR_CART":
+      return {};
     default:
       return state;
   }
@@ -21,8 +24,6 @@ const checkoutReducer = (state = { lastOrder: null }, action) => {
         ...state,
         lastOrder: action.payload,
       };
-    case "CLEAR_CART":
-      return {};
     default:
       return state;
   }

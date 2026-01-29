@@ -122,7 +122,10 @@ function Products({ handleSubmit }) {
         </Grid>
         <Container component={"section"} className={styles.formContainer}>
           <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
-            <fieldset>
+            <Box
+              component={"fieldset"}
+              sx={{ border: "none", p: 0, m: 0, display: "contents" }}
+            >
               <Typography component={"legend"} className={styles.clientData}>
                 Dados do Cliente
               </Typography>
@@ -204,7 +207,7 @@ function Products({ handleSubmit }) {
                   </Field>
                 </Grid>
               </Grid>
-            </fieldset>
+            </Box>
 
             <Box
               sx={{
