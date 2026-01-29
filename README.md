@@ -41,7 +41,7 @@ Para atender aos requisitos obrigatórios e garantir a melhor performance, foram
 
 1. **Clone este repositório:**
    ```bash
-   git clone [https://github.com/Viniks07/Pagina-de-Compras.git](https://github.com/Viniks07/Pagina-de-Compras.git)
+   git clone https://github.com/Viniks07/Pagina-de-Compras.git
 
 2. **Instale as dependências:**
    ```bash
